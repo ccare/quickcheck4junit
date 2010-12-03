@@ -29,19 +29,31 @@
  * have any questions.
  */
 
-package com.nebularis.quickcheck4junit;
+package org.nebularis.test.quickcheck;
 
-import org.junit.*;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.
  */
-public class SanityCheckJUnitTestCase {
+@RunWith(JMock.class)
+public class SanityCheckJMockTestCase {
 
-  @Test
-  public void testCanRunNormalJUnit() {
-    assertTrue( true );
-  }
+    private final Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+
+    @Test
+    public void testCanRunNormalJUnit() {
+        assertTrue(true);
+    }
 }

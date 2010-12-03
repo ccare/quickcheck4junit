@@ -1,4 +1,4 @@
-package com.nebularis.quickcheck4junit;
+package org.nebularis.test.quickcheck;
 
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;

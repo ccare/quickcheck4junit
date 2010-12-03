@@ -1,7 +1,8 @@
-package com.nebularis.quickcheck4junit;
+package org.nebularis.test.quickcheck;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.nebularis.test.quickcheck.QuickCheckRunner;
 
 import static junit.framework.Assert.assertTrue;
 
