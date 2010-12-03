@@ -29,19 +29,41 @@
  * have any questions.
  */
 
-package org.nebularis.test.quickcheck;
+package org.nebularis.test;
 
-import org.junit.*;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.nebularis.test.AbstractJMockTestSupport;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.
  */
-public class SanityCheckJUnitTestCase {
+@RunWith(JMock.class)
+public class SanityCheckJMockTestCase extends AbstractJMockTestSupport {
 
-  @Test
-  public void testCanRunNormalJUnit() {
-    assertTrue( true );
-  }
+    @Test
+    public void testCanRunNormalJUnit() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void testCanRunNormalJMock() {
+        final CharSequence converter = mock(CharSequence.class);
+        one(converter).length();
+        will(returnValue(59));
+        confirmExpectations();
+
+        assertThat(converter.length(), is(equalTo(59)));
+    }
+
+
 }
