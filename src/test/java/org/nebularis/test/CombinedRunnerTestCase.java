@@ -36,6 +36,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nebularis.test.annotations.RunnerConfig;
 import org.nebularis.test.org.jcheck.annotations.Configuration;
+import org.nebularis.test.org.jcheck.annotations.Generator;
+import org.nebularis.test.org.jcheck.annotations.UseGenerators;
+import org.nebularis.test.org.jcheck.generator.primitive.StringGen;
 import org.nebularis.test.quickcheck.QuickCheckRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -78,5 +81,20 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
 
         assertThat(converter.length(), is(equalTo(59)));
     }
+    
+
+    @Test
+    @Configuration(tests=3,size=5)
+    @Generator(generator=StringGen.class)
+    public void testCanRunNormalJMockWithGenerator(String str) {
+        final CharSequence converter = mock(CharSequence.class);
+        one(converter).length();
+        will(returnValue(str.length()));
+        confirmExpectations();
+
+        assertThat(converter.length(), is(equalTo(str.length())));
+    }
+
+    
 
 }
