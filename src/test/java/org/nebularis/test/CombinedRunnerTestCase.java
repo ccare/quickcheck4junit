@@ -35,6 +35,8 @@ import org.jmock.integration.junit4.JMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nebularis.test.annotations.RunnerConfig;
+import org.nebularis.test.org.jcheck.annotations.Configuration;
+import org.nebularis.test.quickcheck.QuickCheckRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -44,7 +46,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test for simple App.
  */
-@RunWith(CombinedRunner.class)
+@RunWith(QuickCheckRunner.class)
 @RunnerConfig(JMock.class)
 public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
 
@@ -53,6 +55,8 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
         assertTrue(true);
     }
 
+    
+    
     @Test
     public void testCanRunNormalJMock() {
         final CharSequence converter = mock(CharSequence.class);
@@ -63,5 +67,16 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
         assertThat(converter.length(), is(equalTo(59)));
     }
 
+    
+    @Test
+    @Configuration(tests=3)
+    public void testCanRunNormalJMockWithConfigParams() {
+        final CharSequence converter = mock(CharSequence.class);
+        one(converter).length();
+        will(returnValue(59));
+        confirmExpectations();
+
+        assertThat(converter.length(), is(equalTo(59)));
+    }
 
 }
