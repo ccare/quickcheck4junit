@@ -1,6 +1,7 @@
 package org.nebularis.test.quickcheck;
 
 import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nebularis.test.org.jcheck.annotations.Configuration;
@@ -20,12 +21,20 @@ public class QuickCheckRunnerTestCase {
 	
 	private static int count3 = 0;
 	
+	private static int ignoredTestCount = 0;
+	
 	@Test
     public void checkSimpleTest() {
         count++;
 		assertTrue(true);
     }
 
+	@Test
+	@Ignore
+	public void checkNotBeingPickedup() {
+		ignoredTestCount++;
+	}
+	
 	@Test
 	@Configuration(tests=5)
     public void checkConfigurationOverridenAtTestMethodLevel() {
@@ -54,6 +63,7 @@ public class QuickCheckRunnerTestCase {
 		assertTrue(count1 == 5);
 		assertTrue(count2 == 2);
 		assertTrue(count3 == 3);
+		assertTrue(ignoredTestCount == 0);
 	}
 	
 	
