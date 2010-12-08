@@ -38,6 +38,7 @@ import org.nebularis.test.annotations.RunnerConfig;
 import org.nebularis.test.org.jcheck.annotations.Configuration;
 import org.nebularis.test.org.jcheck.annotations.Generator;
 import org.nebularis.test.org.jcheck.annotations.UseGenerators;
+import org.nebularis.test.org.jcheck.generator.primitive.IntegerGen;
 import org.nebularis.test.org.jcheck.generator.primitive.StringGen;
 import org.nebularis.test.quickcheck.QuickCheckRunner;
 
@@ -95,6 +96,20 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
         assertThat(converter.length(), is(equalTo(str.length())));
     }
 
-    
+    @Test
+    @Configuration(tests=4,size=5)
+     @UseGenerators({
+                @Generator(position=0,
+                           generator=StringGen.class),
+                @Generator(position=1,
+                           generator=IntegerGen.class)})    
+    public void testCanRunNormalJMockWithUseGenerator(String str, int num) {
+        final CharSequence converter = mock(CharSequence.class);
+        one(converter).length();
+        will(returnValue(str.length() + num));
+        confirmExpectations();
+
+        assertThat(converter.length(), is(equalTo(str.length() + num)));
+    }
 
 }
