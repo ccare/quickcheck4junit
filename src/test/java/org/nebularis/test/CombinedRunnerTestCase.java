@@ -32,12 +32,15 @@
 package org.nebularis.test;
 
 import org.jmock.integration.junit4.JMock;
+import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nebularis.test.annotations.RunnerConfig;
 import org.nebularis.test.org.jcheck.annotations.Configuration;
 import org.nebularis.test.org.jcheck.annotations.Generator;
 import org.nebularis.test.org.jcheck.annotations.UseGenerators;
+import org.nebularis.test.org.jcheck.exceptions.AssertionFailedError;
 import org.nebularis.test.org.jcheck.generator.primitive.IntegerGen;
 import org.nebularis.test.org.jcheck.generator.primitive.StringGen;
 import org.nebularis.test.quickcheck.QuickCheckRunner;
@@ -54,6 +57,10 @@ import static org.junit.Assert.assertTrue;
 @RunnerConfig(JMock.class)
 public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
 
+	
+	private static int successCount = 0;
+	private static int failureCount = 0;
+	
     @Test
     public void testCanRunNormalJUnit() {
         assertTrue(true);
@@ -112,4 +119,23 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
         assertThat(converter.length(), is(equalTo(str.length() + num)));
     }
 
+    
+//    @Test
+//    @Configuration(tests=10,size=5)
+//    @Generator(generator=IntegerGen.class)
+//    public void testCheckWhetherAllTestsExecutesEvenIfFailuresHappen(int a) {
+//    	
+//    	try {
+//    		assertTrue(a > 0);
+//    		successCount++;
+//    	} catch (AssertionFailedError afe) {
+//    		failureCount++;
+//    	}
+//    }
+//    
+//    @AfterClass
+//    public static void confirmCounts() {
+//    	assertTrue(successCount + failureCount == 10);
+//    }
+    
 }
