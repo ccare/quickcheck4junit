@@ -120,22 +120,22 @@ public class CombinedRunnerTestCase extends AbstractJMockTestSupport {
     }
 
     
-//    @Test
-//    @Configuration(tests=10,size=5)
-//    @Generator(generator=IntegerGen.class)
-//    public void testCheckWhetherAllTestsExecutesEvenIfFailuresHappen(int a) {
-//    	
-//    	try {
-//    		assertTrue(a > 0);
-//    		successCount++;
-//    	} catch (AssertionFailedError afe) {
-//    		failureCount++;
-//    	}
-//    }
-//    
-//    @AfterClass
-//    public static void confirmCounts() {
-//    	assertTrue(successCount + failureCount == 10);
-//    }
+    @Test
+    @Configuration(tests=10,size=5)
+    @Generator(generator=IntegerGen.class)
+    public void testCheckWhetherAllTestsExecutesEvenIfFailuresHappen(int a) {
+    	
+    	try {
+    		assertTrue(a > 0);
+    		successCount++;
+    	} catch (AssertionError afe) {
+    		failureCount++;
+    	}
+    }
+    
+    @AfterClass
+    public static void confirmCounts() {
+    	assertTrue(successCount + failureCount == 10);
+    }
     
 }
